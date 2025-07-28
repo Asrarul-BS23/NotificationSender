@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>NotificationSender</id>
+    <version>1.0.3</version>
+    <title>NotificationSender</title>
+    <authors>Asrarul Hoque Eusha</authors>
+    <owners>Brain Station 23</owners>
+    <description>A simple notification library for sending emails via SMTP.</description>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/yourcompany/NotificationSender</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>email smtp notification dotnet library</tags>
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="Microsoft.Extensions.Options" version="9.0.7" />
+        <dependency id="Microsoft.Extensions.Options.ConfigurationExtensions" version="9.0.7" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- Include only compiled assemblies -->
+    <file src="bin\Release\net8.0\NotificationSender.dll" target="lib\net8.0\NotificationSender.dll" />
+    <!-- Exclude source files explicitly -->
+  </files>
+</package>
