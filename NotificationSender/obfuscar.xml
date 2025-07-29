@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Obfuscator>
+	<Var name="InPath" value=".\bin\Release\net8.0" />
+	<Var name="OutPath" value=".\bin\Release\net8.0\Obfuscated" />
+	<Var name="KeyFile" value="" />
+	<Var name="HideStrings" value="true" />
+	<Var name="OptimizeMethods" value="true" />
+	<Var name="SuppressIldasm" value="true" />
+
+	<Module file="$(InPath)\NotificationSender.dll">
+		<!-- Skip public API classes/methods that consumers need to access -->
+		<SkipType name="NotificationSender.PublicApiClass" />
+		<SkipMethod signature="void NotificationSender.PublicApiClass::PublicMethod()" />
+
+		<!-- Obfuscate everything else -->
+	</Module>
+</Obfuscator>

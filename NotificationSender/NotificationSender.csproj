@@ -1,48 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<AssemblyName>NotificationSender</AssemblyName>
-		<AssemblyVersion>1.0.1.0</AssemblyVersion>
-		<Version>1.0.3</Version>
+		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-
-		<!-- Prevent source inclusion -->
+		<!-- strip out debugging and source -->
 		<IncludeSymbols>false</IncludeSymbols>
 		<IncludeSource>false</IncludeSource>
 		<DebugType>none</DebugType>
-		<!-- Prevent debug symbols -->
 		<DebugSymbols>false</DebugSymbols>
 		<EmbedAllSources>false</EmbedAllSources>
-		<PublishRepositoryUrl>false</PublishRepositoryUrl>
-		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
-
-		<!-- Ensure only compiled assemblies are included -->
-		<PackageBuildOutputFolder>lib</PackageBuildOutputFolder>
-		<BuildOutputTargetFolder>lib</BuildOutputTargetFolder>
-		<ContentTargetFolders>content</ContentTargetFolders>
-
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-
-		<!-- Metadata -->
+		<!-- metadata -->
 		<PackageId>NotificationSender</PackageId>
-		<Title>NotificationSender</Title>
-		<Description>A simple notification library for sending emails via SMTP.</Description>
-		<Company>Brain Station 23</Company>
+		<Version>1.0.4</Version>
 		<Authors>Asrarul Hoque Eusha</Authors>
-		<Copyright>Copyright © 2025 Brain Station 23</Copyright>
+		<Description>SMTP‑based notification library</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageTags>email smtp notification dotnet library</PackageTags>
+		<!-- Obfuscation settings -->
+		<EnableObfuscation>true</EnableObfuscation>
 	</PropertyGroup>
-
-	<!-- Explicitly exclude source files from package -->
-	<ItemGroup>
-		<None Remove="**/*.cs" />
-		<Compile Remove="**/*.tmp" />
-	</ItemGroup>
-
+	
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Options" Version="9.0.7" />
 		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.7" />
+		<!-- Add obfuscation tool -->
+		<PackageReference Include="Obfuscar" Version="2.2.33" PrivateAssets="all" />
 	</ItemGroup>
+	
+	<!-- Obfuscation configuration -->
+	<ItemGroup>
+		<None Include="obfuscar.xml" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+	
+	<!-- Post-build obfuscation -->
+	<Target Name="ObfuscateAssembly" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+		<Exec Command="$(PkgObfuscar)\tools\Obfuscar.Console.exe obfuscar.xml" />
+	</Target>
 </Project>
